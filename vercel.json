@@ -8,5 +8,67 @@
       "root": "backend/",
       "entrypoint": "app.main:app"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/auth/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/subscriptions/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/dashboard/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/free-trials/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/reminders/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/ai/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/profile/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/health",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/",
+      "destination": {
+        "service": "frontend"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
+    }
+  ]
 }
