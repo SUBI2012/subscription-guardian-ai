@@ -57,6 +57,7 @@ function Sidebar({ open, onClose }) {
 
   return (
     <>
+      {/* MOBILE OVERLAY */}
       {open && (
         <div
           className="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm lg:hidden"
@@ -64,21 +65,21 @@ function Sidebar({ open, onClose }) {
         />
       )}
 
+      {/* SIDEBAR */}
       <aside
         className={
-          "fixed lg:static inset-y-0 left-0 z-50 w-64 shrink-0 " +
+          "fixed inset-y-0 left-0 z-50 w-64 " +
           "bg-slate-900 border-r border-slate-800 " +
-          "flex flex-col transition-transform duration-200 " +
+          "flex flex-col " +
+          "transition-transform duration-200 ease-in-out " +
           "lg:translate-x-0 " +
           (open
             ? "translate-x-0"
             : "-translate-x-full")
         }
       >
-
         {/* LOGO */}
-
-        <div className="h-16 flex items-center gap-2.5 px-5 border-b border-slate-800">
+        <div className="h-16 shrink-0 flex items-center gap-2.5 px-5 border-b border-slate-800">
 
           <span className="text-xl">
             🛡️
@@ -94,11 +95,19 @@ function Sidebar({ open, onClose }) {
             </p>
           </div>
 
+          {/* MOBILE CLOSE BUTTON */}
+          <button
+            type="button"
+            onClick={onClose}
+            className="ml-auto lg:hidden w-8 h-8 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+
         </div>
 
-
         {/* NOTIFICATION */}
-
         <div className="px-4 py-4 border-b border-slate-800 flex items-center justify-between">
 
           <div>
@@ -115,9 +124,7 @@ function Sidebar({ open, onClose }) {
 
         </div>
 
-
         {/* NAVIGATION */}
-
         <nav className="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
 
           <p className="px-3.5 mb-3 text-xs font-semibold uppercase tracking-wider text-slate-600">
@@ -175,9 +182,7 @@ function Sidebar({ open, onClose }) {
 
         </nav>
 
-
         {/* LOGOUT */}
-
         <div className="p-3 border-t border-slate-800">
 
           <div className="px-3.5 pb-2">
@@ -201,7 +206,6 @@ function Sidebar({ open, onClose }) {
           </button>
 
         </div>
-
       </aside>
     </>
   );
