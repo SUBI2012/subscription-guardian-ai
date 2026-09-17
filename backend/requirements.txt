@@ -4,6 +4,7 @@ sqlalchemy
 psycopg2-binary
 python-dotenv
 passlib[bcrypt]
+bcrypt<4
 python-jose[cryptography]
 python-multipart
 spacy
