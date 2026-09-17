@@ -13,16 +13,8 @@ from .ai_routes import router as ai_router
 from .profile_routes import router as profile_router
 
 
-# ------------------------------------------------------
-# Create database tables
-# ------------------------------------------------------
-
 Base.metadata.create_all(bind=engine)
 
-
-# ------------------------------------------------------
-# Create FastAPI application
-# ------------------------------------------------------
 
 app = FastAPI(
     title="Subscription Guardian AI API",
@@ -31,15 +23,14 @@ app = FastAPI(
 )
 
 
-# ------------------------------------------------------
-# CORS
-# ------------------------------------------------------
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        "http://localhost:4173",
+        "http://127.0.0.1:4173",
+        "https://subscription-guardian-ai.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -47,33 +38,13 @@ app.add_middleware(
 )
 
 
-# ------------------------------------------------------
-# API ROUTES
-# ------------------------------------------------------
-
-# ------------------------------------------------------
-# AUTHENTICATION
-# ------------------------------------------------------
-# auth_routes.py already has:
-# prefix="/auth"
-#
-# Therefore DO NOT add another prefix here.
-#
-# Final routes:
-# /auth/register
-# /auth/login
-# /auth/token
-
-app.include_router(
-    auth_router
-)
+# Authentication
+# auth_routes.py already has prefix="/auth"
+app.include_router(auth_router)
 
 
-# ------------------------------------------------------
-# SUBSCRIPTIONS
-# ------------------------------------------------------
-# Main prefix for subscription routes.
-
+# Subscriptions
+# routes.py has no prefix; main provides it
 app.include_router(
     router,
     prefix="/subscriptions",
@@ -81,22 +52,13 @@ app.include_router(
 )
 
 
-# ------------------------------------------------------
-# DASHBOARD
-# ------------------------------------------------------
-# dashboard_routes.py already contains:
-# prefix="/dashboard"
-
-app.include_router(
-    dashboard_router
-)
+# Dashboard
+# dashboard_routes.py already has prefix="/dashboard"
+app.include_router(dashboard_router)
 
 
-# ------------------------------------------------------
-# FREE TRIALS
-# ------------------------------------------------------
-# Main provides /free-trials.
-
+# Free Trials
+# main provides /free-trials
 app.include_router(
     free_trial_router,
     prefix="/free-trials",
@@ -104,22 +66,13 @@ app.include_router(
 )
 
 
-# ------------------------------------------------------
-# REMINDERS
-# ------------------------------------------------------
-# reminder_routes.py already contains:
-# prefix="/reminders"
-
-app.include_router(
-    reminder_router
-)
+# Reminders
+# reminder_routes.py already has prefix="/reminders"
+app.include_router(reminder_router)
 
 
-# ------------------------------------------------------
 # AI
-# ------------------------------------------------------
-# Main provides /ai.
-
+# main provides /ai
 app.include_router(
     ai_router,
     prefix="/ai",
@@ -127,12 +80,8 @@ app.include_router(
 )
 
 
-# ------------------------------------------------------
-# PROFILE
-# ------------------------------------------------------
-# profile_routes.py does not have a prefix.
-# Main provides /profile.
-
+# Profile
+# main provides /profile
 app.include_router(
     profile_router,
     prefix="/profile",
@@ -140,20 +89,12 @@ app.include_router(
 )
 
 
-# ------------------------------------------------------
-# ROOT
-# ------------------------------------------------------
-
 @app.get("/")
 def root():
     return {
         "message": "Subscription Guardian AI API is running"
     }
 
-
-# ------------------------------------------------------
-# HEALTH CHECK
-# ------------------------------------------------------
 
 @app.get("/health")
 def health():
